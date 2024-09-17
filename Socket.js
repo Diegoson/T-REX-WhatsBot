@@ -3,7 +3,6 @@ const { default: makeWASocket,
        DisconnectReason,
        Browsers } = require('@whiskeysockets/baileys');
 const P = require('pino');
-const chalk = (await import('chalk')).default;
 const fs = require('fs');
 const axios = require('axios');
 const canvafy = require('canvafy');
@@ -70,6 +69,7 @@ async function startBot() {
     });
     
     sock.ev.on('messages.upsert', async (m) => {
+    const chalk = (await import('chalk')).default;      
     if (m.type !== 'notify') return;
     const msg = await serialised(JSON.parse(JSON.stringify(m.messages[0])), m, sock);
     if (!msg.message) return;
